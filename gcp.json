@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "socialism",
+  "private_key_id": "f53bfdbccb62e9e49332886c9a14954179f256a2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCjAWbNwog9xXAb\nwetNzXQneJz5nkjl1wtHJCPMWPYIsHhM94vuqOqrqPChbiqYIWaB0EdzsOwg7ASZ\ntVljjcZhdAMEohDnXIE8wu9YMl9q0+kfh0PT0DJ4thVoM39dgVSCGc16BeZxfP70\ncuwcjuWgkGbDQNe9MzQbJv1Vby2L3en1ZDNZE/ODOmKWU11Cc1/LabqUEraQY5+U\nIxn1OxpXwfqATk+ETwIUT02yoyMBu28BrjZ90P/PUxXzHGvx1t7nq+yh9se+Oa3q\nowH6oI0CjeuyIDhdaLzVqyrEMpceu1XV/uUrDEeJu71+kvhbUFyWjbpMgCJyWvpB\nvkj7n0pxAgMBAAECggEAA0bQD5cHWNGHEkHExnq4qOH1atWeEsOuufp9nzoTEQPm\nGSr5NL4PwI1b7+zIXag/OKEMjKRr7LH92i6haj1DdXpI5L8SvqnW/bcP61qQ3TN/\nCkeUaxWybAeB+OcfGmyy+44D+b3UXufjspt8SEstjbuVWzuqkoas15ZiLYVXeaof\nLE8Zd2ybom9rycRRTe4YaxuI9uwnzkljmDgH0zJEC+zdeHLdzwKgSqYJqJ6DfjZ0\nLAVdiguH/lMxytUAo0p864QVIsNeYM2ImDN47WXeD6NQiC/ak29JWrBrJpJJDGzs\n3HySZY1eYPkrH/ooco/jYSB9806CvjjCEl2uuNE9wQKBgQDiPNs1vt82D6Y4TRmM\nNTvHpt/F/0pE3z4pHW5pWsu7+2iB1oN8U6F5JVz2eiP9XaxXXSB1CuYYtaZbpqoq\nodFhvGrO0n/hlFD4uZdNxHckHwk6c1koXQ+lXYD7Ywq/WIvAmQDHx1ZXv+bSIZzA\nERJvrUScIreXjsgaN4SDc3lkIQKBgQC4cwjzAcqgcKD4uIFjNZuaugh4x5Nr8kGX\nFuc0v9M6qjG0EOO4toIXzoDLchSu6ZCoQBqz/CWCP7Om7wos2fGs4Ay9jUuuxZTH\naaFPVUT817BJFhapJZzISU20eGoPdMS4jMCJQ8oo8267xgl/P8GFCopSyrFV0S94\nE2ggIuMcUQKBgHTXh0NHs9Ig3PDg6NvftmMTjSieA4Z0YY8scxSYXvZUDpJX7ops\nSs3dfRiS1jmJgnOQVi38lf+W+TcGaYYhEplOjT8JuiAP0I3UlA8G851FJif44MgW\n3/jAxNeQPEG8gljS7HNBQReKtbQ6xdDwQDxLGU8mIvl0NWZM2/Rj1ALhAoGBAKTB\nvIC0XParJF6HEKw5umCfQ+n++2Q05Pm875Fit59zXypk28Sm4dW6E7mmkWscHqbr\ne+7BkA+kLykx5HjjxMiS6U53496dhqQJapmepRzk3QarwFoeysjtEYfe934O45ml\nwGXcM7wYlhUMdHdBz+6y15PUkksBq9EqJJxwDUXBAoGAUvWzGQ9I1MyJjUBze2vk\nvnRX5S76+JtC9esWID7TVDvnswKaYwvLXwEyjrY62psv6ykbd3GAXkH2uT02rxXa\n543wllaYm7ovR4o/2C2OjLrD47u2XArnLqE0VJVwZ/OtGwXoz4J4vPadXZprhm8u\nrjlA3SEyK3I+rMMOnQLaon0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "docker-postgres-db@socialism.iam.gserviceaccount.com",
+  "client_id": "106089907482470806725",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/docker-postgres-db%40socialism.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

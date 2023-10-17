@@ -1,0 +1,16 @@
+version: '1'
+services:
+    zookeeper:
+        image: zookeeper
+        ports:
+            - 2181:2181
+    resources:
+        image: confluentinc/cp-kafka
+        depends_on:
+            - zookeeper
+        ports:
+            - 9092:9092
+        environment:
+            KAFKA_ZOOKEEPER_CONNECT: 34.93.123.211:2181
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://34.93.123.211:9092
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

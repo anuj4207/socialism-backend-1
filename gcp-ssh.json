@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "socialism",
+  "private_key_id": "b62c1c7a0c1670d768a00b02e967d57a95cc76ee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCk0IZUdCxcZDiU\nQmdXZ8t+ZLWkY6IfF+Ah3TIFWSYMrdLSIIj7YIRBsBrlHgDBO3fMVjCU3xllQnLV\nMJBl7u0hl2IXcSAqqdTDcVsb+MVJkfYQ+op+59nRSNYz+VM5O3Qx3EESTll6ZSDw\nD5t53N1SG0mW7EA4PybCgcmvw6hfulV9Iq1Kd4KEOOYrantWPxoRlplX7yirUYT/\nhFMUp3SGsAxFbgCgJzxurxVGNBrRDJC3lk0+nfFyfeg1VhwSrXHFh2TspO8WmGze\nLeZ7zT8z0hNKHJs9YHPchkBC9oVGxZwt37PumBSNnDiCtwuZxFOC0YJSyBqq1beW\nSJCuCyxtAgMBAAECggEAAOHP0jxj72Om7N41HOHklCrYUQaqe7WeQLglGCO7wSYe\nAntjmErSMmLNpgvEz8PwdnLApE9UXLcgE7WElFMUyFD92KfFlwzdI2WkKfBpJ+Vk\n1n7sxlSZ1RWpddJACIahrtGhtIYgUvgfFsHSoHKW6aVVPb5KcrKd070rlen7aPW9\nY8sDctUoI0VEV5pIWpae2skY0RFn0S1qivQw7+7QwUYO1vZO9de3k6I94PWWLY9s\n7otgmqBPf1CacRfHsUS8cE2O4iyMtcsdoDd2TwIR8t9hodMky2rGz+NS9S3lSZdU\nfHg4HQovaa+LeNWRcj/Re/kBD9v4wSmxO3YDyjue4QKBgQDTXlVPUhJbYXHbCv/C\n9YEmFZpn5Ln7RtCR2G2W4chho305wHoUIcCWZ1o2uBC6Er8RqMDcgnF0VdW2KRle\njepsQDb2yvWjZI4BcGK8SZjMgJGIhaxkP1ScxG+3Hoy1xMejVPmGIsP+KvyCGi9H\nA2His5EL3L6lYYqfZZOArzMdDQKBgQDHna/QTnE3nF6XLF5YIUMx6K3XMP4oCmCs\n0MtGDXa/ni4tjiaGBR0sbr1p0AijPH5nLUMtOFApc2/9uCQU4mtJXqI4rpjv2NnC\nlmtaBiL2e4qesCps9TxkM+fv3kVXdGdhi+5USj3zz5ZKqLqnV/hwmOKmXe1Gegzz\nOF98Mxg04QKBgFIqJXeEK+ah5qSDjhC3ZtDrLO6eFz36tTE8tL0mX8K0zwUYMVyK\nEldlLch/nOD4UJYIx4/wlTHn+/+n0ljTSgFypOsi0oIFoL4mdftDkMZOZERx0iXW\nCIo4QkUo9wHh0MlJSwY9lXrEMwxQKXitc+uwaf32fZXEaSK1VbV8ZZ4xAoGADB6T\nzRbmItU4nP8Rn1ItrTsOSvFrjOzMX9GxdchdfFbTQOrPhfWLhuYWU/VQgPCsUAFc\ngcNYgpvCoenrLuVsVCENwlk/adiFqB3P2MBkoQhxKx9RBBqDlyXboCGjniKwICkJ\nyE5Vopbo7hF+e6iIqfVuVWGAhXXlkWLL0VOc1aECgYBBn/5nbYvLUescfsrRklpM\nxDn84mKgZb+C2fkRxk4UbMrNy0OMUL5SsEnBQZ+Aj3NsQ2VT6GzeFeTojcEEZxH3\n8oWWijNDwm+k10FwZaYnUNeJbj5WTWmWas8zIQY9iObQ9GIozcYDDllHLDG/KOM7\nqsYDpVNaHSt1O3nu9Om53A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "socialism-bucket@socialism.iam.gserviceaccount.com",
+  "client_id": "102404879983106239049",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/socialism-bucket%40socialism.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

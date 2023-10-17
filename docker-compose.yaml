@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  # backend-db:
+  #   image: nestjs-docker:0.0.1
+  #   ports:
+  #     - 80:3000
+  #   environment:
+  #     JWT_SECRET: secret
+  #     DATABASE_URL: postgresql://postgres:123@35.200.236.43:80/nest?schema=public
+  #   networks:
+  #     - socialism
+  dev-db:
+    image: postgres:15.4
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER:  postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - socialism
+networks:
+  socialism:
+# docker run -p 80:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=nest gcr.io/socialism/postgres 

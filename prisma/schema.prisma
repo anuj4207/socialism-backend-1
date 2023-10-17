@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  email      String   @unique
+  hash       String
+  firstName  String?
+  lastName   String?
+  location   String?
+  eventId    Int[]
+  followerId Int[]
+  followId   Int[]
+  groupId    Int[]
+  tags       Tags[]
+  post       Post[]
+  chat       Chat[]
+  wsId       String?
+  status     Boolean?
+
+  @@map("users")
+}
+
+model Tags {
+  id      Int    @id @default(autoincrement())
+  name    String
+  userId  Int
+  groupId Int?
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@map("tags")
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  userId      Int
+  groupId     Int?
+  postLink    String
+  location    String?
+  eventId     Int?
+  eventName   String?
+  tag         String?
+  title       String?
+  description String?
+  tagUser     Int[]
+  like        Int[]
+  comment     Comment[]
+  user        User      @relation(fields: [userId], references: [id])
+  group       Group?    @relation(fields: [groupId], references: [id])
+
+  @@map("posts")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  postId    Int
+  userId    Int
+  comment   String
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@map("comments")
+}
+
+model Group {
+  id        Int    @id @default(autoincrement())
+  adminId   Int
+  name      String
+  location  String
+  tag       String
+  type      String
+  pendingId Int[]
+  membersId Int[]
+  postId    Post[]
+  chat      Chat[]
+
+  @@map("groups")
+}
+
+model Chat {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  receipentId Int
+  groupId     Int?
+  senderId    Int
+  discussion  String
+  seen        Boolean
+  user        User     @relation(fields: [receipentId], references: [id])
+  group       Group?   @relation(fields: [groupId], references: [id])
+
+  @@map("chats")
+}
+
+model Event {
+  id            Int      @id @default(autoincrement())
+  adminId       Int
+  category      String
+  title         String
+  tag           String
+  description   String
+  location      String
+  schedule      DateTime
+  maxMembers    Int
+  eventType     String
+  pendingUser   Int[]
+  confirmedUser Int[]
+}
+
+model WsIdMapUId {
+  id  Int @id
+  uId Int
+
+  @@map("id")
+}
