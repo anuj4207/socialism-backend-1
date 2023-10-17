@@ -47,24 +47,42 @@ export class PostController {
   }
 
   //create post
-  @Post('create/:postId')
+  @Post('create')
   createPersonalPost(@Body() post: any, @Req() req: any) {
     return this.postService.createPost(post, req.user.id);
   }
 
-  //fetch post by userId
-  @Get('fetch')
-  fetchPostByUserId(@Param() tag:any){
-    let data = {}
-    switch(){
-      case 'userId':
-        data = {userId:}
+  //fetch post by id of user/group/event
+  @Get('fetch/:id/:type')
+  fetchPostByUserId(@Param() tag: any) {
+    let data = {};
+    let id = tag.id.slice(':')[1];
+    if (tag.type.slice(':')[1] !== 'tag') {
+      id = parseInt(id);
     }
-    return this.postService.fetchPostByUserId(id)
-  }
-  //fetch post by groupId
 
-  //fetch post by eventId
+    switch (tag.type) {
+      case ':user':
+        data = { userId: id };
+        break;
+      case ':event':
+        data = { eventId: id };
+        break;
+      case ':group':
+        data = { groupId: id };
+        break;
+      case ':tag':
+        data = { tag: id };
+        break;
+    }
+
+    return this.postService.fetch(data);
+    // switch(){
+    //   case 'userId':
+    //     data = {userId:}
+    // }
+    // return this.postService.fetchPostByUserId(id)
+  }
 
   //fetch post by tags
 

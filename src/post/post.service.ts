@@ -1,7 +1,10 @@
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { bucket } from './cloud.helper';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import {
+  PrismaClientKnownRequestError,
+  empty,
+} from '@prisma/client/runtime/library';
 import { PostDto } from './dto';
 
 @Injectable()
@@ -42,17 +45,16 @@ export class PostService {
   async createPost(post: any, id: number) {
     const data = {
       userId: id,
-      groupId: post.hasOwnProperty('groupId') ? post.groupId : null,
+      groupId: post.hasOwnProperty('groupId') ? parseInt(post.groupId) : null,
       postLink: post.postLink,
       location: post.location,
-      eventId: post.hasOwnProperty('eventId') ? post.eventId : null,
+      eventId: post.hasOwnProperty('eventId') ? parseInt(post.eventId) : null,
       eventName: post.hasOwnProperty('eventName') ? post.eventName : null,
       tag: post.tag,
       title: post.hasOwnProperty('title') ? post.title : null,
-      describe: post.hasOwnProperty('describe') ? post.describe : null,
+      description: post.hasOwnProperty('describe') ? post.describe : null,
     };
     try {
-      console.log(post);
       await this.prismaService.post.create({
         data: data,
       });
@@ -65,11 +67,12 @@ export class PostService {
   }
 
   //fetch post by user id
-  async fetchPostById(tag: any) {
-    let id = parseInt(userId);
+  async fetch(tag: any) {
+    console.log(tag);
+
     try {
       let data = await this.prismaService.post.findMany({
-        where: { : id },
+        where: tag,
       });
       return { msg: 'success', data: data };
     } catch (error) {

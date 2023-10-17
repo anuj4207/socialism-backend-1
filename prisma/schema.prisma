@@ -59,7 +59,7 @@ model Post {
   comment     Comment[]
   user        User      @relation(fields: [userId], references: [id])
   group       Group?    @relation(fields: [groupId], references: [id])
-
+  event       Event? @relation(fields: [eventId], references: [id])
   @@map("posts")
 }
 
@@ -116,6 +116,9 @@ model Event {
   eventType     String
   pendingUser   Int[]
   confirmedUser Int[]
+  post Post[]
+
+  @@map("events")
 }
 
 model WsIdMapUId {
