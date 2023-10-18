@@ -5,7 +5,6 @@ import {
   PrismaClientKnownRequestError,
   empty,
 } from '@prisma/client/runtime/library';
-import { PostDto } from './dto';
 
 @Injectable()
 export class PostService {
