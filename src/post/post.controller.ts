@@ -1,13 +1,13 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  NotFoundException,
   Param,
   Post,
+  Put,
   Req,
   Res,
-  ServiceUnavailableException,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -15,9 +15,6 @@ import {
 import { PostService } from './post.service';
 import { JwtGuard } from 'src/auth/guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { StorageFile } from './storage-file';
-import { log } from 'console';
-import { PostDto } from './dto';
 @UseGuards(JwtGuard)
 @Controller('post')
 export class PostController {
@@ -45,13 +42,11 @@ export class PostController {
       parseInt(req.user.id),
     );
   }
-
   //create post
   @Post('create')
   createPersonalPost(@Body() post: any, @Req() req: any) {
     return this.postService.createPost(post, req.user.id);
   }
-
   //fetch post by id of user/group/event
   @Get('fetch/:id/:type')
   fetchPostByUserId(@Param() tag: any) {
@@ -83,40 +78,24 @@ export class PostController {
     // }
     // return this.postService.fetchPostByUserId(id)
   }
-
-  //fetch post by tags
-
   //fetch post by location
 
   //like post
-
+  @Put('like/:id')
+  likePost(@Param() tag: any, @Req() req: any) {
+    let postId = parseInt(tag.id.slice(':')[1]);
+    return this.postService.likePost(postId, req.user.id);
+  }
   //comment post
-
-  //get post
-  // @Get('/:mediaId')
-  // async downloadMedia(@Param('mediaId') mediaId: string, @Res() res: Response) {
-  //   let storageFile: StorageFile;
-  //   try {
-  //     storageFile = await this.postService.get('media/' + mediaId);
-  //   } catch (e) {
-  //     if (e.message.toString().includes('No such object')) {
-  //       throw new NotFoundException('image not found');
-  //     } else {
-  //       throw new ServiceUnavailableException('internal error');
-  //     }
-  //   }
-  //   // res.set("Content-Type", storageFile.contentType);
-  //   // res.setHeader("Cache-Control", "max-age=60d");
-  //   // res.end(storageFile.buffer);
-  //   return { msg: 'success', data: storageFile.buffer };
-  // }
+  @Put('comment/:id')
+  commentPost(@Param('id') tag: any, @Req() req: any, @Body() msg: any) {
+    let postId = parseInt(tag.slice(':')[1]);
+    return this.postService.postComment(postId, req.user.id, msg);
+  }
+  //delete post
+  @Delete('delete/:id')
+  deletePost(@Param('id') tag: any, @Req() req: any) {
+    let postId = parseInt(tag.slice(':')[1]);
+    return this.postService.deletePost(postId, req.user.id);
+  }
 }
-//create a event post in group
-
-//show post (public) related to tags/location for user
-
-//share post
-
-//like post
-
-//comment post

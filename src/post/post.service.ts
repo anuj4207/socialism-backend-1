@@ -11,6 +11,13 @@ import { PostDto } from './dto';
 export class PostService {
   private readonly logger = new Logger(PostService.name);
   constructor(private prismaService: PrismaService) {}
+
+  //delete image
+  async deleteImage(publicUrl: any, prefix: string) {
+    let name = publicUrl.split('1/')[1];
+    await bucket.deleteFiles({ prefix: `${prefix + name}` });
+  }
+  //upload image
   uploadImage = (postId: string, buffer: any): Promise<string> =>
     new Promise((resolve, reject) => {
       const blob = bucket.file(postId);
@@ -28,7 +35,7 @@ export class PostService {
         })
         .end(buffer);
     });
-  //upload file to cloud and link in DB
+  //upload file to cloud and return public url
   async save(originalname: any, buffer: any, id: number) {
     //change image file name
     const postId =
@@ -40,7 +47,6 @@ export class PostService {
     }
     return { msg: 'success', data: { publicUrl: resUpload } };
   }
-
   //create post
   async createPost(post: any, id: number) {
     const data = {
@@ -65,7 +71,6 @@ export class PostService {
       else throw new ForbiddenException('something went wrong' + error.message);
     }
   }
-
   //fetch post by user id
   async fetch(tag: any) {
     console.log(tag);
@@ -81,42 +86,62 @@ export class PostService {
       else throw new ForbiddenException('something went wrong' + error.message);
     }
   }
+  //like post
+  async likePost(postId: number, id: number) {
+    try {
+      await this.prismaService.post.update({
+        where: { id: postId },
+        data: {
+          like: {
+            push: id,
+          },
+        },
+      });
+      return { msg: 'success' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('Database error');
+      else return { msg: 'error', error: error.message };
+    }
+  }
+  //commment post
+  async postComment(postId: number, userId: number, msg: any) {
+    try {
+      await this.prismaService.comment.create({
+        data: {
+          postId: postId,
+          userId: userId,
+          comment: msg.comment,
+        },
+      });
+      return { msg: 'success' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('Database error');
+      else return { msg: 'error', error: error.message };
+    }
+  }
+  //delete post
+  async deletePost(postId: number, userId: number) {
+    try {
+      const data = await this.prismaService.post.findFirst({
+        where: { id: postId, userId: userId },
+      });
+      //delete image from cloud
+      await this.deleteImage(data.postLink, `${userId}/`);
+      //delete comment of post
+      await this.prismaService.comment.deleteMany({
+        where: { postId: postId },
+      });
+      //delete post
+      await this.prismaService.post.delete({
+        where: { id: postId, userId: userId },
+      });
+      return { msg: 'success' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('Database error');
+      else return { msg: 'error', error: error.message };
+    }
+  }
 }
-
-// async delete(path: string) {
-//   await this.storage
-//     .bucket(this.bucket)
-//     .file(path)
-//     .delete({ ignoreNotFound: true });
-// }
-
-// async get(path: string): Promise<StorageFile> {
-//   const fileResponse: DownloadResponse = await this.storage
-//     .bucket(this.bucket)
-//     .file(path)
-//     .download();
-//   const [buffer] = fileResponse;
-//   const storageFile = new StorageFile();
-//   storageFile.buffer = buffer;
-//   storageFile.metadata = new Map<string, string>();
-//   return storageFile;
-
-//   async getWithMetaData(path: string): Promise<StorageFile> {
-//     const [metadata] = await this.storage
-//       .bucket(this.bucket)
-//       .file(path)
-//       .getMetadata();
-//     const fileResponse: DownloadResponse = await this.storage
-//       .bucket(this.bucket)
-//       .file(path)
-//       .download();
-//     const [buffer] = fileResponse;
-
-//     const storageFile = new StorageFile();
-//     storageFile.buffer = buffer;
-//     storageFile.metadata = new Map<string, string>(
-//       Object.entries(metadata || {})
-//     );
-//     storageFile.contentType = storageFile.metadata.get("contentType");
-//     return storageFile;
-//   }
