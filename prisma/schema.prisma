@@ -14,32 +14,25 @@ model User {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  email      String   @unique
-  hash       String
-  firstName  String?
-  lastName   String?
-  location   String?
+  number     String
+  otp        Int?
+  email      String?  @unique
+  hash       String?
+  name       String?
+  about      String?
+  city       String?
+  state      String?
   eventId    Int[]
   followerId Int[]
   followId   Int[]
   groupId    Int[]
-  tags       Tags[]
+  tags       String[]
   post       Post[]
   chat       Chat[]
   wsId       String?
   status     Boolean?
 
   @@map("users")
-}
-
-model Tags {
-  id      Int    @id @default(autoincrement())
-  name    String
-  userId  Int
-  groupId Int?
-  user    User   @relation(fields: [userId], references: [id])
-
-  @@map("tags")
 }
 
 model Post {
@@ -59,7 +52,8 @@ model Post {
   comment     Comment[]
   user        User      @relation(fields: [userId], references: [id])
   group       Group?    @relation(fields: [groupId], references: [id])
-  event       Event? @relation(fields: [eventId], references: [id])
+  event       Event?    @relation(fields: [eventId], references: [id])
+
   @@map("posts")
 }
 
@@ -106,17 +100,19 @@ model Chat {
 model Event {
   id            Int      @id @default(autoincrement())
   adminId       Int
-  category      String
   title         String
   tag           String
   description   String
-  location      String
-  schedule      DateTime
+  address       String
+  time          String
+  date          DateTime
   maxMembers    Int
-  eventType     String
+  eventType     Boolean
+  city          String
+  state         String
   pendingUser   Int[]
   confirmedUser Int[]
-  post Post[]
+  post          Post[]
 
   @@map("events")
 }

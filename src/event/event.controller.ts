@@ -23,11 +23,18 @@ export class EventController {
     return this.eventService.create(dto, id);
   }
   //return event by tags then filter with locaiton
-  @Get('fetch')
-  findNearbyEvent(@Body() dto: FindEventDto, @Req() req: any) {
-    console.log(dto);
+  @Get('search')
+  searchEvent(@Body() dto: FindEventDto, @Req() req: any) {
     //let id = req.user.id;
-    return this.eventService.findNearbyEvent(dto);
+    return this.eventService.searchEvent(dto);
+  }
+  //nearby event
+  @Get('nearby')
+  findNearbyEvent(@Req() req: any) {
+    let city = req.user.city;
+    console.log(city);
+
+    return this.eventService.nearbyEvent(city);
   }
   //join request
   @Put('joinrequest/:id')

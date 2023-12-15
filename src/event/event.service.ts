@@ -8,8 +8,7 @@ export class EventService {
   constructor(private prismaService: PrismaService) {}
   //create new event link eventId with admin
   async create(dto: EventDto, id: number) {
-    // dto.maxMembers = parseInt(dto.maxMembers)
-    let nDto = { adminId: id, ...dto };
+    let nDto = { adminId: id, ...dto, confirmedUser: [id] };
     console.log('type', dto.maxMembers, typeof nDto.maxMembers, new Date());
     //console.log(nDto);
     typeof nDto.maxMembers === 'string'
@@ -33,7 +32,7 @@ export class EventService {
         throw error;
         //return { msg: 'error', error: error };
       }
-      return { msg: 'Success' };
+      return { msg: 'success' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError)
         throw new ForbiddenException('Event creation failed | Unauthorzied');
@@ -41,13 +40,13 @@ export class EventService {
     }
   }
   //find event by location then use tags as filter
-  async findNearbyEvent(dto: FindEventDto) {
+  async searchEvent(dto: FindEventDto) {
     try {
       let eventFetch = await this.prismaService.event.findMany({
         where: { tag: dto.tag },
       });
-      eventFetch = eventFetch.filter((e) => (e.location = dto.location));
-      return { msg: 'Success', data: eventFetch };
+      eventFetch = eventFetch.filter((e) => (e.city = dto.city));
+      return { msg: 'success', data: eventFetch };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError)
         throw new ForbiddenException('Unauthorized');
@@ -158,6 +157,21 @@ export class EventService {
       if (error instanceof PrismaClientKnownRequestError)
         throw new ForbiddenException('unauthorized');
       return { msg: 'error', error: error };
+    }
+  }
+  //find event by profile
+  async nearbyEvent(city: string) {
+    try {
+      let eventFetch = await this.prismaService.event.findMany({
+        where: { city: city },
+      });
+      console.log(eventFetch);
+
+      return { msg: 'success', data: eventFetch };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('Unauthorized');
+      else throw error;
     }
   }
 }

@@ -37,17 +37,37 @@ export class MetadataService {
   //add tag
   async tag(tags: any, id: any) {
     try {
-      await this.prisma.tags.create({
+      await this.prisma.user.update({
+        where: { id: parseInt(id) },
         data: {
-          name: tags,
-          userId: id,
+          tags: {
+            push: tags,
+          },
         },
       });
-
       return { msg: 'success' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         throw new ForbiddenException('You are not allowed to add');
+      }
+      throw error;
+    }
+  }
+
+  //add location
+  async addLocation(dto: any, id: number) {
+    try {
+      await this.prisma.user.update({
+        where: { id: id },
+        data: {
+          city: dto.city,
+          state: dto.state,
+        },
+      });
+      return { msg: 'success' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new ForbiddenException('Unauthorized');
       }
       throw error;
     }
@@ -100,6 +120,24 @@ export class MetadataService {
         return data;
       } else {
         throw new ForbiddenException('Unauthorized');
+      }
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new ForbiddenException('Unauthorized');
+      }
+      throw error;
+    }
+  }
+  //my details
+  async myDetails(id: number) {
+    try {
+      let data = await this.prisma.user.findFirst({
+        where: { id: id },
+      });
+      if (!data) {
+        return { msg: 'error', data: 'not found' };
+      } else {
+        return { msg: 'success', data: data };
       }
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {

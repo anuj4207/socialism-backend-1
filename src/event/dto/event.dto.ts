@@ -1,9 +1,12 @@
-import { IsDateString, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class EventDto {
-  @IsString()
-  @IsNotEmpty()
-  category: string;
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -15,21 +18,26 @@ export class EventDto {
   description: string;
   @IsString()
   @IsNotEmpty()
-  location: string;
-  @IsDateString()
+  address: string;
   @IsNotEmpty()
-  schedule: string;
+  time: string;
+  @IsNotEmpty()
+  date: string;
+  @IsBoolean()
+  @IsNotEmpty()
+  eventType: boolean;
   @IsNotEmpty()
   maxMembers: number;
-  @IsString()
   @IsNotEmpty()
-  eventType: string;
+  city: string;
+  @IsNotEmpty()
+  state: string;
 }
 
 export class FindEventDto {
   @IsString()
   @IsNotEmpty()
-  location: string;
+  city: string;
   @IsString()
   tag: string;
 }

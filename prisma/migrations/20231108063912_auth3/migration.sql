@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "otp" INTEGER,
+ALTER COLUMN "number" SET DATA TYPE TEXT;
