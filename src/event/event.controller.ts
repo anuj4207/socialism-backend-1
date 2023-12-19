@@ -44,9 +44,9 @@ export class EventController {
     return this.eventService.joinRequest(eventId, id);
   }
   //my events
-  @Get('myevent')
+  @Get('myevent/:id')
   fetchMyEvent(@Req() req: any) {
-    return this.eventService.fetchMyEvents(req.user.id);
+    return this.eventService.fetchMyEvents(parseInt(req.params.id.slice(1)));
   }
   //admin action fetch user
   @Get('pendinguser/:id')
@@ -64,5 +64,14 @@ export class EventController {
     let eventId = eid.id.slice(1);
     let userId = eid.userid.slice(1);
     return this.eventService.addMyEventUser(eventId, id, userId);
+  }
+  @Post('delete/:id')
+  deleteEvent(@Param() eid: any, @Req() req: any) {
+    let eventId = eid.id.slice(1);
+    typeof eventId === 'string'
+      ? (eventId = parseInt(eventId))
+      : new Error('fix int conversion');
+    let id = req.user.id;
+    return this.eventService.deleteEvent(eventId, id);
   }
 }

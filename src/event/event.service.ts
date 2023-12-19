@@ -63,7 +63,12 @@ export class EventService {
       let checkSpot = await this.prismaService.event.findFirst({
         where: { id: eid },
       });
-      if (checkSpot.maxMembers - checkSpot.confirmedUser.length > 0) {
+      console.log(checkSpot.pendingUser.filter((v) => v == id));
+
+      if (
+        checkSpot.maxMembers - checkSpot.confirmedUser.length > 0 &&
+        checkSpot.pendingUser.filter((v) => v === id).length === 0
+      ) {
         try {
           await this.prismaService.event.update({
             where: { id: eid },
@@ -166,8 +171,45 @@ export class EventService {
         where: { city: city },
       });
       console.log(eventFetch);
-
+      eventFetch = eventFetch.filter(
+        (v) => v.confirmedUser.length < v.maxMembers,
+      );
       return { msg: 'success', data: eventFetch };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('Unauthorized');
+      else throw error;
+    }
+  }
+
+  //delete event
+  async deleteEvent(eId: number, uId: number) {
+    let admin = false;
+    try {
+      let data = await this.prismaService.event.findFirst({
+        where: { id: eId },
+      });
+      if (data) {
+        if (data.adminId === uId) {
+          await this.prismaService.event.delete({ where: { id: eId } });
+        } else {
+          let user = await this.prismaService.event.findFirst({
+            where: { id: eId },
+          });
+          let confirmedUser = user.confirmedUser;
+          await this.prismaService.event.update({
+            where: { id: eId },
+            data: {
+              confirmedUser: {
+                set: confirmedUser.filter((v) => {
+                  v !== uId;
+                }),
+              },
+            },
+          });
+        }
+        return { msg: 'success' };
+      }
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError)
         throw new ForbiddenException('Unauthorized');

@@ -41,6 +41,7 @@ export class FriendController {
     typeof fId === 'string'
       ? (fId = parseInt(fId))
       : new Error('fix int conversionm');
+
     return this.friendService.unfollow(fId, id, req.user.followId);
   }
 }

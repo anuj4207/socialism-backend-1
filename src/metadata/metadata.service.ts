@@ -146,4 +146,22 @@ export class MetadataService {
       throw error;
     }
   }
+  //other details
+  async otherDetails(id: number) {
+    try {
+      let data = await this.prisma.user.findFirst({
+        where: { id: id },
+      });
+      if (!data) {
+        return { msg: 'error', data: 'not found' };
+      } else {
+        return { msg: 'success', data: data };
+      }
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new ForbiddenException('Unauthorized');
+      }
+      throw error;
+    }
+  }
 }

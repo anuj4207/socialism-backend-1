@@ -48,4 +48,10 @@ export class MetadataController {
 
     return this.metdataService.myDetails(id);
   }
+
+  @Get('otherDetails/:id')
+  otherDetails(@Req() req: any) {
+    let id = parseInt(req.params.id.slice(1));
+    return this.metdataService.otherDetails(id);
+  }
 }
