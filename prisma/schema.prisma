@@ -75,6 +75,7 @@ model Group {
   location  String
   tag       String
   type      String
+  eventId   Int[]
   pendingId Int[]
   membersId Int[]
   postId    Post[]

@@ -24,7 +24,7 @@ export class PostService {
       let publicUrl = '';
       blobStream
         .on('finish', async () => {
-          publicUrl = `https://storage.googleapis.com/socialism_post/${blob.name}`;
+          publicUrl = `https://storage.googleapis.com/socialism-post-image/${blob.name}`;
           resolve(publicUrl);
         })
         .on('error', (error) => {

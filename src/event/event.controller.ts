@@ -65,6 +65,13 @@ export class EventController {
     let userId = eid.userid.slice(1);
     return this.eventService.addMyEventUser(eventId, id, userId);
   }
+  @Put('canceluser/:id/:userid')
+  cancelMyEventUser(@Param() eid: any, @Req() req: any) {
+    let id = req.user.id;
+    let eventId = parseInt(eid.id.slice(1));
+    let userId = parseInt(eid.userid.slice(1));
+    return this.eventService.removeUser(eventId, id, userId);
+  }
   @Post('delete/:id')
   deleteEvent(@Param() eid: any, @Req() req: any) {
     let eventId = eid.id.slice(1);

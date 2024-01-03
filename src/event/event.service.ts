@@ -91,14 +91,26 @@ export class EventService {
       else return { msg: 'error', error: error };
     }
   }
+
   //admin
   //fetch all pending user
   async fetchPenUser(eventId: number) {
     try {
-      let data = await this.prismaService.event.findMany({
+      let data = await this.prismaService.event.findFirst({
         where: { id: eventId },
+        select: { pendingUser: true },
       });
-      return { msg: 'success', data: data };
+
+      if (data.pendingUser.length > 0) {
+        let profile = await this.prismaService.user.findMany({
+          where: { id: { in: data.pendingUser } },
+        });
+        console.log(profile);
+
+        return { msg: 'success', data: profile };
+      } else {
+        return { msg: 'success', data: [] };
+      }
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError)
         throw new ForbiddenException('Unauthorized');
@@ -181,7 +193,29 @@ export class EventService {
       else throw error;
     }
   }
+  //remove user
+  async removeUser(eId: number, id: number, userId: number) {
+    try {
+      let pendingUser = await this.prismaService.event.findFirst({
+        where: { id: eId },
+      });
 
+      if (pendingUser) {
+        let pen = pendingUser.pendingUser.filter((v) => v != userId);
+        await this.prismaService.event.update({
+          where: { id: eId },
+          data: {
+            pendingUser: pen,
+          },
+        });
+        return { msg: 'success' };
+      }
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        throw new ForbiddenException('unauthorized');
+      return { msg: 'error', error: error };
+    }
+  }
   //delete event
   async deleteEvent(eId: number, uId: number) {
     let admin = false;
