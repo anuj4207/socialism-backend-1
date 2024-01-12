@@ -40,6 +40,16 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Containerized Application
+
+Download image of application
+```bash
+docker pull clz17/backend:v2
+```
+Run docker-compose 
+```bash
+docker compose build && docker compose up -d
+```
 
 
 
